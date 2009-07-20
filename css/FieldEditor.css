@@ -156,7 +156,6 @@ div.EditableDateField div.FieldDefault input {
 	margin: 0px;
 	/* display: none; */
 	display: block;
-	position: relative;
 }
 
 #right #Form_EditForm div.EditableDropdown select {

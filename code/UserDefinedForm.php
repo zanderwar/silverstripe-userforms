@@ -532,7 +532,7 @@ JS
 						// create the file from post data
 						$upload = new Upload();
 						$file = new File();
-						$upload->loadIntoFile($_FILES[$field->Name], $file);
+						$upload->loadIntoFile($_FILES[$field->Name], $file, $field->getUploadFolder());
 
 						// write file to form field
 						$submittedField->UploadedFileID = $file->ID;

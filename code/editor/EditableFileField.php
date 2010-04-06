@@ -27,9 +27,22 @@ class EditableFileField extends EditableFormField {
 	
 	static $plural_names = 'File Fields';
 	
-	public function getFormField() {
-		return new FileField($this->Name, $this->Title);
-	}
+	function getFieldConfiguration() {
+		$options = parent::getFieldConfiguration();
+		
+		$options->push(
+			new TextField(
+				"Fields[$this->ID][CustomSettings][Folder]", 
+				_t('EditableFileField.UPLOADFOLDER', 'Upload Folder Name (will be created inside the Uploads)'),
+				$this->getSetting('Folder')
+		));    	
+
+		return $options;
+  	}
+
+  	public function getFormField() {
+		return new FileField($this->Name, $this->Title, null, null, null, $this->getUploadFolder());
+  	}
 	
 	/**
 	 * Workaround to handle uploads on the UserFormPage
@@ -38,5 +51,15 @@ class EditableFileField extends EditableFormField {
 		return "";
 	}
 	
+	public function getUploadFolder() {
+		$uploadFolder = 'Uploads';
+		$folderName = $this->getSetting('Folder');
+		
+		if($folderName) {
+			$uploadFolder .= "/" . $folderName;
+		}
+
+		return $uploadFolder;
+	}
 }
 ?>
